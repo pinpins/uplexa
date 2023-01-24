@@ -883,31 +883,7 @@ PRAGMA_WARNING_DISABLE_VS(4355)
 	    boost::asio::placeholders::error));
     }
 
-    if (false)
-    {
-      if (port_ipv6 == 0) port_ipv6 = m_port; // default arg means bind to same port as ipv4
 
-      boost::asio::ip::tcp::resolver resolver(io_service_);
-      boost::asio::ip::tcp::resolver::query query(address_v6, boost::lexical_cast<std::string>(port_ipv6), boost::asio::ip::tcp::resolver::query::canonical_name);
-      boost::asio::ip::tcp::endpoint endpoint = *resolver.resolve(query);
-      if (endpoint.protocol() != boost::asio::ip::tcp::v6())
-      {
-	throw std::runtime_error("must pass an ipv6 address to bind to if using ipv6!");
-      }
-
-      acceptor_v6.open(endpoint.protocol());
-      acceptor_v6.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
-      acceptor_v6.set_option(boost::asio::ip::v6_only(true));
-      acceptor_v6.bind(endpoint);
-      acceptor_v6.listen();
-      boost::asio::ip::tcp::endpoint binded_endpoint = acceptor_v6.local_endpoint();
-      m_port_ipv6 = binded_endpoint.port();
-      MDEBUG("start accept ipv6");
-      new_connection_v6.reset(new connection<t_protocol_handler>(io_service_, m_config, m_sock_count, m_sock_number, m_pfilter, m_connection_type));
-      acceptor_v6.async_accept(new_connection_v6->socket(),
-	  boost::bind(&boosted_tcp_server<t_protocol_handler>::handle_accept_v6, this,
-	    boost::asio::placeholders::error));
-    }
 
     return true;
     }
