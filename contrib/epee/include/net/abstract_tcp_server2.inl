@@ -883,7 +883,7 @@ PRAGMA_WARNING_DISABLE_VS(4355)
 	    boost::asio::placeholders::error));
     }
 
-    if (!no_ipv6)
+    if (false)
     {
       if (port_ipv6 == 0) port_ipv6 = m_port; // default arg means bind to same port as ipv4
 
