@@ -4692,7 +4692,7 @@ void wallet2::load(const std::string& wallet_, const epee::wipeable_string& pass
   bool exists = boost::filesystem::exists(m_keys_file, e);
   THROW_WALLET_EXCEPTION_IF(e || !exists, error::file_not_found, m_keys_file);
   lock_keys_file();
-  THROW_WALLET_EXCEPTION_IF(!is_keys_file_locked(), error::wallet_internal_error, "internal error: \"" + m_keys_file + "\" is opened by another wallet program");
+  // THROW_WALLET_EXCEPTION_IF(!is_keys_file_locked(), error::wallet_internal_error, "internal error: \"" + m_keys_file + "\" is opened by another wallet program");
 
   // this temporary unlocking is necessary for Windows (otherwise the file couldn't be loaded).
   unlock_keys_file();
